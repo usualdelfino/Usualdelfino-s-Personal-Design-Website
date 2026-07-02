@@ -1,0 +1,7 @@
+# Local archive and generated package files
+_archive/
+*.zip
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

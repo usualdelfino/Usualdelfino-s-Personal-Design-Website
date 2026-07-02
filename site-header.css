@@ -1,0 +1,116 @@
+@font-face {
+  font-family: "Cera Pro";
+  src: url("./assets/fonts/cera-pro-medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cera Pro";
+  src: url("./assets/fonts/cera-pro-bold.otf") format("opentype");
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+.site-header {
+  --site-header-logo-width: clamp(139px, 13.5vw, 204px);
+  --site-header-logo-height: 35px;
+  --site-header-nav-gap: 4px;
+  --site-header-nav-size: clamp(14px, 1.5vw, 20px);
+  position: fixed;
+  top: 16px;
+  left: 0;
+  z-index: 100;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-gap, var(--app-grid-col-gap, 10px));
+  width: 100%;
+  padding: 0 var(--page-pad, var(--app-grid-padding, 40px));
+  color: #fff;
+  font-family:
+    "Cera Pro", "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei",
+    sans-serif;
+  mix-blend-mode: difference;
+}
+
+.site-header__logo {
+  grid-column: 1 / span 3;
+  display: block;
+  width: fit-content;
+  line-height: 1;
+}
+
+.site-header__logo img {
+  width: var(--site-header-logo-width);
+  height: auto;
+  max-height: var(--site-header-logo-height);
+  object-fit: contain;
+}
+
+.site-header__nav {
+  --site-header-line-x: 0px;
+  --site-header-line-width: 0px;
+  --site-header-line-opacity: 0;
+  grid-column: 8 / span 5;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--site-header-nav-gap);
+  font-size: var(--site-header-nav-size);
+  font-weight: 650;
+  line-height: 1;
+}
+
+.site-header a {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header__link {
+  z-index: 1;
+}
+
+.site-header__nav-line {
+  position: absolute;
+  top: calc(1em + 2px);
+  left: 0;
+  z-index: 0;
+  width: var(--site-header-line-width);
+  height: 1px;
+  background: currentColor;
+  opacity: var(--site-header-line-opacity);
+  pointer-events: none;
+  transform: translate3d(var(--site-header-line-x), 0, 0);
+  transition:
+    opacity 0.16s ease,
+    transform 0.36s ease,
+    width 0.36s ease;
+}
+
+@media (max-width: 900px) {
+  .site-header {
+    --site-header-logo-width: clamp(115px, 33vw, 134px);
+    --site-header-logo-height: 26px;
+    --site-header-nav-gap: 3px;
+    --site-header-nav-size: 13px;
+    grid-template-columns: auto 1fr;
+    column-gap: 1rem;
+  }
+
+  .site-header__logo {
+    grid-column: 1;
+  }
+
+  .site-header__nav {
+    grid-column: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__nav-line {
+    transition-duration: 0.36s !important;
+  }
+}

@@ -1,0 +1,233 @@
+html {
+  --page-flip-duration: 1200ms;
+  --page-flip-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+html.is-page-flip-pending,
+html.is-page-flip-history-loading,
+body.is-page-flip-navigating {
+  overflow: hidden;
+}
+
+html.is-page-flip-history-loading body > :not(.page-flip-preview):not(.page-flip-history-frame):not(.page-flip-history-cover) {
+  visibility: hidden !important;
+}
+
+html.is-page-flip-history-loading body {
+  background: transparent !important;
+}
+
+html.is-page-flip-pending body {
+  clip-path: inset(100% 0 0 0);
+}
+
+html.is-page-flip-pending body.is-page-flip-enter {
+  animation: page-flip-enter var(--page-flip-duration) var(--page-flip-ease) forwards;
+  will-change: clip-path;
+}
+
+html.is-page-flip-arriving .loader,
+html.is-page-flip-arriving .c-loading {
+  display: none !important;
+}
+
+html.is-page-flip-incoming:not(.is-page-flip-home-preview) .char {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+html.is-page-flip-home-preview:not(.is-page-flip-home-preview-active) .char {
+  animation: none !important;
+  opacity: 0.02 !important;
+}
+
+html.is-page-flip-home-preview.is-page-flip-home-preview-active body.is-loaded .char,
+html.is-page-flip-home-preview.is-page-flip-home-preview-active body.is-finished .char {
+  animation: title-char-in 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+  animation-delay: calc(0.08s + var(--i) * 0.045s) !important;
+}
+
+html.is-page-flip-incoming:not(.is-page-flip-home-preview) .hero__kicker,
+html.is-page-flip-incoming:not(.is-page-flip-home-preview) .hero__subtitle {
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) !important;
+  transition: none !important;
+}
+
+html.is-page-flip-home-preview:not(.is-page-flip-home-preview-active) .hero__kicker,
+html.is-page-flip-home-preview:not(.is-page-flip-home-preview-active) .hero__subtitle {
+  animation: none !important;
+  opacity: 0 !important;
+  transform: translate3d(0, 28px, 0) !important;
+  transition: none !important;
+}
+
+html.is-page-flip-home-preview.is-page-flip-home-preview-active body.is-loaded .hero__kicker,
+html.is-page-flip-home-preview.is-page-flip-home-preview-active body.is-finished .hero__kicker,
+html.is-page-flip-home-preview.is-page-flip-home-preview-active body.is-loaded .hero__subtitle,
+html.is-page-flip-home-preview.is-page-flip-home-preview-active body.is-finished .hero__subtitle {
+  animation: page-flip-hero-copy-in 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+html.is-page-flip-home-preview.is-page-flip-home-preview-active body.is-loaded .hero__kicker,
+html.is-page-flip-home-preview.is-page-flip-home-preview-active body.is-finished .hero__kicker {
+  animation-delay: 0.08s !important;
+}
+
+html.is-page-flip-home-preview.is-page-flip-home-preview-active body.is-loaded .hero__subtitle,
+html.is-page-flip-home-preview.is-page-flip-home-preview-active body.is-finished .hero__subtitle {
+  animation-delay: 0.18s !important;
+}
+
+html.is-page-flip-arriving *,
+html.is-page-flip-arriving *::before,
+html.is-page-flip-arriving *::after {
+  animation-delay: 0s !important;
+  transition-delay: 0s !important;
+  transition-duration: 0s !important;
+}
+
+html.is-page-flip-arriving .hero__media {
+  --hero-scale: 1 !important;
+  opacity: 1 !important;
+  filter: brightness(1) saturate(1) contrast(1) !important;
+  transition: none !important;
+}
+
+html.is-page-flip-arriving .hero__media:not(.is-canvas-ready) img {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+html.is-page-flip-arriving .hero__media.is-canvas-ready img {
+  opacity: 0 !important;
+  transition: none !important;
+}
+
+html.is-page-flip-arriving .hero__canvas {
+  transition: none !important;
+}
+
+html.is-page-flip-arriving .hero__media:not(.is-canvas-ready) .hero__canvas {
+  opacity: 0 !important;
+}
+
+html.is-page-flip-arriving .hero__media.is-canvas-ready .hero__canvas {
+  opacity: 1 !important;
+}
+
+html.is-page-flip-arriving .p-single-mv__background img {
+  opacity: 1 !important;
+  transform: translate3d(0, var(--single-mv-y, 0px), 0) scale(1) !important;
+  transition: none !important;
+}
+
+.page-flip-preview {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  overflow: hidden;
+  clip-path: inset(100% 0 0 0);
+  pointer-events: none;
+  will-change: clip-path;
+}
+
+.page-flip-preview iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+}
+
+.page-flip-preview.is-active {
+  animation: page-flip-enter var(--page-flip-duration) var(--page-flip-ease) forwards;
+}
+
+.page-flip-preview.is-committing {
+  animation: none;
+  clip-path: inset(0 0 0 0);
+}
+
+.page-flip-history-cover {
+  position: fixed;
+  inset: 0;
+  z-index: 2147482999;
+  overflow: hidden;
+  pointer-events: none;
+  background: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.page-flip-history-frame {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: transparent;
+}
+
+.page-flip-history-frame--backdrop {
+  z-index: 2147482998;
+}
+
+.page-flip-history-frame--reveal {
+  z-index: 2147483000;
+  clip-path: inset(100% 0 0 0);
+  will-change: clip-path;
+}
+
+.page-flip-history-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  opacity: 0;
+}
+
+.page-flip-history-frame.is-ready iframe {
+  opacity: 1;
+}
+
+.page-flip-history-frame--reveal.is-active {
+  animation: page-flip-enter var(--page-flip-duration) var(--page-flip-ease) forwards;
+}
+
+@keyframes page-flip-enter {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes page-flip-hero-copy-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.is-page-flip-pending body.is-page-flip-enter,
+  .page-flip-preview.is-active,
+  .page-flip-history-frame--reveal.is-active {
+    animation-name: page-flip-enter !important;
+    animation-duration: var(--page-flip-duration) !important;
+    animation-timing-function: var(--page-flip-ease) !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    animation-direction: normal !important;
+    animation-fill-mode: forwards !important;
+  }
+}

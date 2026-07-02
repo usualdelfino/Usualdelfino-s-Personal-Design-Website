@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5"
+    />
+    <meta
+      name="description"
+      content="数策智元图表 AI Agent 项目详情页。"
+    />
+    <title>数策智元图表 AI Agent / 子远的设计空间</title>
+    <link rel="icon" href="data:," />
+    <style>
+      html,
+      body {
+        background: #dddddd;
+      }
+    </style>
+    <script src="./page-transition.js?v=home-video-b-ready-20260702"></script>
+    <link rel="stylesheet" href="./page-transition.css?v=no-flash-route-ready-20260702" />
+    <link rel="stylesheet" href="./project-detail.css?v=anchor-glass-20260702" />
+    <link rel="stylesheet" href="./contact-footer.css?v=text-offset-20260701a" />
+    <link rel="stylesheet" href="./site-header.css?v=site-header-nav-line-20260701" />
+  </head>
+  <body aria-live="polite" data-project="bi-agent">
+    <div class="loader" aria-live="polite" aria-label="HELLO 欢迎来到">
+      <p class="loader__text" data-loader-text="HELLO 欢迎来到" aria-hidden="true"></p>
+      <div class="loader__scan" aria-hidden="true">
+        <span class="loader__scan-line"></span>
+        <span class="loader__scan-block" style="--x: -42vw; --y: -1px; --w: 8vw; --h: 1px; --d: 0.02s"></span>
+        <span class="loader__scan-block" style="--x: -29vw; --y: 2px; --w: 11vw; --h: 1px; --d: 0.08s"></span>
+        <span class="loader__scan-block" style="--x: -17vw; --y: -5px; --w: 9vw; --h: 3px; --d: 0.14s"></span>
+        <span class="loader__scan-block" style="--x: -7vw; --y: 4px; --w: 12vw; --h: 4px; --d: 0.18s"></span>
+        <span class="loader__scan-block" style="--x: 3vw; --y: -2px; --w: 15vw; --h: 2px; --d: 0.22s"></span>
+        <span class="loader__scan-block" style="--x: 15vw; --y: 6px; --w: 10vw; --h: 5px; --d: 0.26s"></span>
+        <span class="loader__scan-block" style="--x: 28vw; --y: -4px; --w: 12vw; --h: 2px; --d: 0.31s"></span>
+        <span class="loader__scan-block" style="--x: 40vw; --y: 1px; --w: 9vw; --h: 1px; --d: 0.36s"></span>
+      </div>
+      <div class="loader__panel loader__panel--top">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="loader__panel loader__panel--bottom">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div data-site-header data-site-header-active="project"></div>
+
+    <nav class="c-anchor-nav" aria-label="Project anchors" data-anchor-nav>
+      <div class="c-anchor-nav__rail" aria-hidden="true">
+        <span>目录</span>
+      </div>
+      <div class="c-anchor-nav__panel">
+        <ul class="c-anchor-nav__list">
+          <li>
+            <a href="#page-02" data-anchor-link="page-02">
+              <span class="c-anchor-nav__text">需求分析</span>
+            </a>
+          </li>
+          <li>
+            <a href="#page-03" data-anchor-link="page-03">
+              <span class="c-anchor-nav__text">AI生成交互原型</span>
+            </a>
+          </li>
+          <li>
+            <a href="#page-04" data-anchor-link="page-04">
+              <span class="c-anchor-nav__text">AI探索视觉风格</span>
+            </a>
+          </li>
+          <li>
+            <a href="#page-05" data-anchor-link="page-05">
+              <span class="c-anchor-nav__text">AI落地设计规范</span>
+            </a>
+          </li>
+          <li>
+            <a href="#page-06" data-anchor-link="page-06">
+              <span class="c-anchor-nav__text">界面设计细节</span>
+            </a>
+          </li>
+          <li>
+            <a href="#page-11" data-anchor-link="page-11">
+              <span class="c-anchor-nav__text">AI项目总结</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="smooth-root" data-smooth-root>
+      <main class="main">
+        <div class="p-single">
+          <section class="p-single-mv" aria-label="Faint Film hero">
+            <div class="p-single-mv__box">
+              <!-- 修改点 1：按需求完整删除首屏右下角项目预览悬浮卡片，不渲染 p-single-mv__card 或替代元素。 -->
+            </div>
+
+            <div class="p-single-mv__background">
+              <!-- 图片替换入口：data-image-slot="hero"，实际 src 由 script.js 的 IMAGE_SLOTS 统一注入。 -->
+              <img
+                src="./assets/bi-agent/bi-agent-hero.jpg"
+                data-image-slot="hero"
+                alt="数策智元图表 AI Agent 项目封面"
+              />
+            </div>
+          </section>
+
+          <section class="p-single-detail" aria-labelledby="project-preface-title">
+            <h2 class="p-single-title" id="project-preface-title">写在最前</h2>
+            <p class="p-single-text">
+              数策智元源自友人外包合作项目。此前在帆软长期与数据报表打交道，同时对AI 产品设计也较为熟悉。<br />
+              因为项目时间紧，全程依托 AI 提升产出效率，用AI赋能设计工作流，希望对你有所启发。
+            </p>
+          </section>
+
+          <section class="p-single-scope" aria-labelledby="project-scope-title">
+            <h2 class="p-single-title" id="project-scope-title">负责内容</h2>
+            <p class="p-single-text">需求分析，视觉设计，界面设计，规范落地</p>
+          </section>
+
+          <section class="p-single-images" aria-label="Project images">
+            <div class="p-single-images__item" id="page-02" data-anchor-section="page-02">
+              <!-- 图片替换入口：data-image-slot="more01" -->
+              <img
+                src="./assets/bi-agent/bi-agent-01.jpg"
+                data-image-slot="more01"
+                alt="数策智元图表 AI Agent 需求分析"
+              />
+            </div>
+            <div class="p-single-images__item" id="page-03" data-anchor-section="page-03">
+              <!-- 图片替换入口：data-image-slot="more02" -->
+              <img
+                src="./assets/bi-agent/bi-agent-02.jpg"
+                data-image-slot="more02"
+                alt="数策智元图表 AI Agent 交互原型确认"
+              />
+            </div>
+            <div class="p-single-images__item" id="page-04" data-anchor-section="page-04">
+              <!-- 图片替换入口：data-image-slot="more03" -->
+              <img
+                src="./assets/bi-agent/bi-agent-03.jpg"
+                data-image-slot="more03"
+                alt="数策智元图表 AI Agent 探索界面风格与基础组件"
+              />
+            </div>
+            <div class="p-single-images__item" id="page-05" data-anchor-section="page-05">
+              <!-- 图片替换入口：data-image-slot="more04" -->
+              <img
+                src="./assets/bi-agent/bi-agent-04.jpg"
+                data-image-slot="more04"
+                alt="数策智元图表 AI Agent 设计规范与变量"
+              />
+            </div>
+            <div class="p-single-images__item" id="page-06" data-anchor-section="page-06">
+              <!-- 图片替换入口：data-image-slot="more05" -->
+              <img
+                src="./assets/bi-agent/bi-agent-05.jpg"
+                data-image-slot="more05"
+                alt="数策智元图表 AI Agent 降低用户 Prompt 门槛"
+              />
+            </div>
+            <div class="p-single-images__item" id="page-07">
+              <!-- 图片替换入口：data-image-slot="more06" -->
+              <img
+                src="./assets/bi-agent/bi-agent-06.jpg"
+                data-image-slot="more06"
+                alt="数策智元图表 AI Agent 多种信息反馈情况"
+              />
+            </div>
+            <div class="p-single-images__item" id="page-08">
+              <!-- 图片替换入口：data-image-slot="more07" -->
+              <img
+                src="./assets/bi-agent/bi-agent-07.jpg"
+                data-image-slot="more07"
+                alt="数策智元图表 AI Agent 信息反馈细化"
+              />
+            </div>
+            <div class="p-single-images__item" id="page-09">
+              <!-- 图片替换入口：data-image-slot="more08" -->
+              <img
+                src="./assets/bi-agent/bi-agent-08.jpg"
+                data-image-slot="more08"
+                alt="数策智元图表 AI Agent 简化看板搭建流程"
+              />
+            </div>
+            <div class="p-single-images__item" id="page-10">
+              <!-- 图片替换入口：data-image-slot="more09" -->
+              <img
+                src="./assets/bi-agent/bi-agent-09.jpg"
+                data-image-slot="more09"
+                alt="数策智元图表 AI Agent 报表对话快捷入口"
+              />
+            </div>
+            <div class="p-single-images__item" id="page-11" data-anchor-section="page-11">
+              <!-- 图片替换入口：data-image-slot="more10" -->
+              <img
+                src="./assets/bi-agent/bi-agent-10.jpg"
+                data-image-slot="more10"
+                alt="数策智元图表 AI Agent 项目总结"
+              />
+            </div>
+          </section>
+
+          <!-- 底部 VIEW NEXT：保持参考站字母分离结构，并由 script.js 绑定同款滚动入场与鼠标跟随虚线方框残影。 -->
+          <section class="p-single-next">
+            <a href="./open-bank.html" aria-label="View Next: 开放银行合作机构管理平台">
+              <span class="p-single-next__type" data-next-title="VIEW NEXT">VIEW NEXT</span>
+            </a>
+          </section>
+        </div>
+
+        <div data-contact-footer></div>
+      </main>
+    </div>
+
+    <script src="./site-header.js?v=visual-anchor-20260702"></script>
+    <script src="./contact-footer.js?v=text-offset-20260701a"></script>
+    <script src="./project-detail.js?v=anchor-flash-20260702"></script>
+  </body>
+</html>
