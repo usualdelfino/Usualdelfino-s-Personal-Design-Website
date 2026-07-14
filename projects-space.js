@@ -55,9 +55,19 @@
     layer.appendChild(star);
   };
 
-  const denseCount = 1120 + Math.floor(random() * 401);
-  const brightCount = 112 + Math.floor(random() * 81);
+  const isCompactViewport = window.matchMedia("(max-width: 800px)").matches;
+  const denseCount = isCompactViewport
+    ? 360 + Math.floor(random() * 81)
+    : 620 + Math.floor(random() * 161);
+  const brightCount = isCompactViewport
+    ? 48 + Math.floor(random() * 17)
+    : 72 + Math.floor(random() * 25);
+  const denseStars = document.createDocumentFragment();
+  const brightStars = document.createDocumentFragment();
 
-  for (let index = 0; index < denseCount; index += 1) createStar(denseLayer);
-  for (let index = 0; index < brightCount; index += 1) createStar(brightLayer, true);
+  for (let index = 0; index < denseCount; index += 1) createStar(denseStars);
+  for (let index = 0; index < brightCount; index += 1) createStar(brightStars, true);
+
+  denseLayer.appendChild(denseStars);
+  brightLayer.appendChild(brightStars);
 })();

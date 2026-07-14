@@ -53,7 +53,7 @@
                     <span>Wechat</span>
                   </dt>
                   <dd>
-                    <img class="contact-section__wechat-qr" src="./assets/wechat-qr.jpg" alt="WeChat QR code" />
+                    <img class="contact-section__wechat-qr" src="./assets/wechat-qr.webp" alt="WeChat QR code" />
                   </dd>
                 </div>
               </dl>
@@ -197,7 +197,6 @@
   };
 
   if (document.readyState === "loading") {
-    renderContactFooters();
     document.addEventListener("DOMContentLoaded", renderContactFooters, { once: true });
   } else {
     renderContactFooters();

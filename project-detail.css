@@ -98,42 +98,19 @@ img {
 
 :root {
   --system-color: #222222;
-  --system-white: #eeeeee;
   --system-background-color: #BDBDBD;
   --project-brief-background: #f8f1e6;
   --project-brief-gradient: linear-gradient(155deg, #fffaf0 0%, #f8f1e6 42%, #eadfce 100%);
   --project-brief-line: #e0d4ce;
   --project-brief-title-offset: clamp(21px, 1.42vw, 26px);
   --project-brief-decor-opacity: 0.05;
-  --app-grid-col-gap: 10px;
-  --app-grid-padding: 40px;
   --header-height: 60px;
   --header-bg-alpha: 1;
-  --loader-ease: cubic-bezier(0.76, 0, 0.24, 1);
   --smooth-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-[data-footer-type],
 .p-single-next a {
   line-height: 1;
-}
-
-[data-footer-type] .hide {
-  height: fit-content;
-  overflow: hidden;
-}
-
-[data-footer-type] .show {
-  display: inline-block;
-  transform: translateY(-100%);
-}
-
-[data-footer-type] .hide:nth-last-of-type(2n) .show {
-  transform: translateY(100%);
-}
-
-[data-footer-type] .u-space {
-  min-width: 2rem;
 }
 
 .main,
@@ -147,8 +124,6 @@ img {
   padding-top: 0;
 }
 
-.l-footer__mail a::after,
-.l-footer__li a::after,
 .p-single-next a::after {
   content: "";
   position: absolute;
@@ -532,8 +507,6 @@ img {
 }
 
 @media (hover: hover) {
-  .l-footer__mail a:hover::after,
-  .l-footer__li:hover a::after,
   .p-single-next a:hover::after {
     width: 100%;
   }
@@ -837,112 +810,6 @@ body.is-finished .loader {
   }
 }
 
-.c-loading {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: transparent;
-  pointer-events: none;
-}
-
-.c-loading__top,
-.c-loading__bottom {
-  position: absolute;
-  left: 0;
-  display: flex;
-  width: 100%;
-  height: 50%;
-}
-
-.c-loading__top {
-  top: 0;
-}
-
-.c-loading__bottom {
-  bottom: 0;
-  align-items: flex-end;
-}
-
-.c-loading__line {
-  width: 5%;
-  height: 100%;
-  background: #111;
-  box-shadow: 1px 0 0 #111;
-}
-
-.c-loading__text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 2;
-  display: flex;
-  height: auto;
-  overflow: hidden;
-  color: var(--system-white);
-  font-family:
-    "PP Neue Montreal Medium", "Helvetica Neue", Arial, sans-serif;
-  font-size: 2rem;
-  font-weight: 600;
-  transform: translate(-50%, -50%);
-}
-
-.c-loading__text span {
-  display: block;
-  line-height: 1;
-  transform: translateY(-100%);
-}
-
-.c-loading__text span:nth-of-type(2n) {
-  transform: translateY(100%);
-}
-
-body.is-ready .c-loading__text span {
-  animation: loading-text-in 1.25s var(--loader-ease) forwards;
-  animation-delay: var(--loader-text-delay, 0s);
-}
-
-body.is-loaded .c-loading__text span {
-  animation: loading-text-out-up 1.2s var(--loader-ease) forwards;
-  animation-delay: var(--loader-text-delay, 0s);
-}
-
-body.is-loaded .c-loading__text span:nth-of-type(2n) {
-  animation-name: loading-text-out-down;
-}
-
-body.is-loaded .c-loading__line {
-  animation: loading-line-out 1.35s var(--loader-ease) forwards;
-  animation-delay: calc(0.45s + var(--loader-line-delay, 0s));
-}
-
-body.is-finished .c-loading {
-  display: none;
-}
-
-@keyframes loading-text-in {
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes loading-text-out-up {
-  to {
-    transform: translateY(-120%);
-  }
-}
-
-@keyframes loading-text-out-down {
-  to {
-    transform: translateY(120%);
-  }
-}
-
-@keyframes loading-line-out {
-  to {
-    height: 0%;
-  }
-}
-
 .p-single-mv {
   position: relative;
   aspect-ratio: 16 / 9;
@@ -1241,80 +1108,6 @@ body.is-finished .p-single-mv__background img {
   fill: currentColor;
 }
 
-.l-footer {
-  position: relative;
-  width: 100%;
-  height: 68rem;
-  padding-top: 20rem;
-  overflow: hidden;
-  background: var(--system-background-color);
-}
-
-.l-footer__grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  column-gap: var(--app-grid-col-gap);
-  padding-inline: var(--app-grid-padding);
-}
-
-.l-footer__ul01 {
-  grid-column: 1 / span 4;
-}
-
-.l-footer__ul02 {
-  grid-column: 7 / span 2;
-}
-
-.l-footer__ul03 {
-  grid-column: 10 / span 2;
-}
-
-.l-footer__li-main {
-  width: 100%;
-  margin-bottom: 24px;
-  border-bottom: 1px var(--system-color) dotted;
-  padding-bottom: 6px;
-  font-size: 14px;
-}
-
-.l-footer__mail a,
-.l-footer__li a {
-  position: relative;
-  display: block;
-  width: fit-content;
-}
-
-.l-footer__mail a {
-  font-size: 30px;
-}
-
-.l-footer__li {
-  width: fit-content;
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-
-.l-footer__big-type {
-  position: absolute;
-  bottom: -2.3rem;
-  left: 0;
-  display: flex;
-  color: var(--system-color);
-  font-family:
-    "PP Neue Montreal Medium", "Helvetica Neue", Arial, sans-serif;
-  font-size: 11.9vw;
-  font-weight: 600;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.l-footer__big-type.is-visible .show {
-  transform: translateY(0);
-  transition: transform 1.4s var(--smooth-ease);
-  transition-delay: calc(var(--footer-index, 0) * 0.03s);
-}
-
-/* 修改点 3：全站作品图统一走占位图插槽，容器只允许完整显示图片，禁止 cover 裁切。 */
 [data-image-slot] {
   max-width: 100%;
   object-fit: contain !important;
@@ -1323,10 +1116,6 @@ body.is-finished .p-single-mv__background img {
 @media (max-width: 767px) {
   html {
     font-size: 2.6666666667vw;
-  }
-
-  :root {
-    --app-grid-padding: 20px;
   }
 
   .p-single-mv {
@@ -1401,31 +1190,6 @@ body.is-finished .p-single-mv__background img {
     font-size: 3rem;
   }
 
-  .l-footer {
-    height: 58rem;
-    padding-top: 10rem;
-  }
-
-  .l-footer__grid {
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-    padding-inline: 20px;
-  }
-
-  .l-footer__li-main {
-    margin-bottom: 12px;
-  }
-
-  .l-footer__mail a {
-    font-size: 16px;
-  }
-
-  .l-footer__big-type {
-    bottom: -0.6rem;
-    font-size: 11vw;
-  }
-
   .c-anchor-nav {
     top: auto;
     bottom: 22px;
@@ -1438,9 +1202,6 @@ body.is-finished .p-single-mv__background img {
     transform: translate3d(0, 0, 0) scale(1);
   }
 
-  .c-loading__text {
-    font-size: 2.4rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

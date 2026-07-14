@@ -1,19 +1,3 @@
-@font-face {
-  font-family: "Cera Pro";
-  src: url("./assets/fonts/cera-pro-medium.otf") format("opentype");
-  font-weight: 400 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Cera Pro";
-  src: url("./assets/fonts/cera-pro-bold.otf") format("opentype");
-  font-weight: 600 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 .contact-section {
   --contact-rem: 0.7320644217vw;
   --contact-pad: clamp(20px, 3.2vw, 40px);
@@ -37,7 +21,7 @@
   inset: -8%;
   background:
     linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.72)),
-    url("./assets/hero-black-hole.jpg") center / cover;
+    url("./assets/hero-black-hole.webp") center / cover;
   filter: grayscale(1) brightness(0.45);
   transform: scale(1.04);
 }
@@ -53,29 +37,6 @@
     clamp(calc(var(--contact-rem) * 5.8), 10vh, calc(var(--contact-rem) * 6.8))
     var(--contact-pad)
     calc(var(--contact-rem) * 5);
-}
-
-.contact-section .section-title {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: calc(var(--contact-rem) * 0.8);
-  margin: 0 0 clamp(calc(var(--contact-rem) * 3), 7vw, calc(var(--contact-rem) * 6));
-  font-size: calc(var(--contact-rem) * 1.5);
-  font-weight: 600;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.contact-section .section-title span {
-  font-size: calc(var(--contact-rem) * 0.92);
-  font-weight: inherit;
-}
-
-.contact-section .section-title strong {
-  font-size: clamp(calc(var(--contact-rem) * 1.2), 2vw, calc(var(--contact-rem) * 1.55));
-  font-weight: inherit;
 }
 
 .contact-section__grid {
@@ -117,18 +78,6 @@
   width: fit-content;
   color: inherit;
   text-decoration: none;
-}
-
-.contact-section__mail,
-.contact-section__phone {
-  display: block;
-  max-width: 100%;
-  color: var(--contact-white);
-  font-size: clamp(calc(var(--contact-rem) * 1.45), 2.5vw, calc(var(--contact-rem) * 2.9));
-  font-weight: 500;
-  line-height: 1.06;
-  letter-spacing: 0;
-  white-space: nowrap;
 }
 
 .contact-section__wechat-qr {
@@ -299,20 +248,10 @@
       calc(var(--contact-rem) * 4.5);
   }
 
-  .contact-section .section-title {
-    margin-bottom: calc(var(--contact-rem) * 2.6);
-  }
-
   .contact-section__grid {
     display: flex;
     flex-direction: column;
     gap: calc(var(--contact-rem) * 3);
-  }
-
-  .contact-section__mail,
-  .contact-section__phone {
-    font-size: clamp(calc(var(--contact-rem) * 1.35), 6.2vw, calc(var(--contact-rem) * 1.8));
-    white-space: normal;
   }
 
   .contact-section p.contact-section__type {

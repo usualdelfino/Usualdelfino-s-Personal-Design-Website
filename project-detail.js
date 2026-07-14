@@ -54,55 +54,6 @@ const shouldPlaySystemIntro = () => {
 };
 
 
-// 图片替换入口：详情页通过 body[data-project] 选择对应素材集。
-const PLACEHOLDER_IMAGE = "./assets/project-placeholder.svg";
-const createSequentialImageSet = (folder, prefix, count) => ({
-  folder: `assets/${folder}/`,
-  slots: Object.fromEntries(
-    Array.from({ length: count }, (_, index) => {
-      const slot = index === 0 ? "hero" : `more${String(index).padStart(2, "0")}`;
-      return [slot, `./assets/${folder}/${prefix}-${String(index).padStart(2, "0")}.jpg`];
-    })
-  ),
-});
-
-const PROJECT_IMAGE_SETS = {
-  "bi-agent": {
-    folder: "assets/bi-agent/",
-    slots: {
-      hero: "./assets/bi-agent/bi-agent-00.jpg",
-      more01: "./assets/bi-agent/bi-agent-01.jpg",
-      more02: "./assets/bi-agent/bi-agent-02.jpg",
-      more03: "./assets/bi-agent/bi-agent-03.jpg",
-      more04: "./assets/bi-agent/bi-agent-04.jpg",
-      more05: "./assets/bi-agent/bi-agent-05.jpg",
-      more06: "./assets/bi-agent/bi-agent-06.jpg",
-      more07: "./assets/bi-agent/bi-agent-07.jpg",
-      more08: "./assets/bi-agent/bi-agent-08.jpg",
-      more09: "./assets/bi-agent/bi-agent-09.jpg",
-      more10: "./assets/bi-agent/bi-agent-10.jpg",
-    },
-  },
-  "open-bank": {
-    folder: "assets/open-bank/",
-    slots: Object.fromEntries(
-      Array.from({ length: 28 }, (_, index) => {
-        const slot = index === 0 ? "hero" : `more${String(index).padStart(2, "0")}`;
-        return [slot, `./assets/open-bank/open-bank-${String(index).padStart(2, "0")}.jpg`];
-      })
-    ),
-  },
-  "gantt-review": createSequentialImageSet("gantt-review", "gantt-review", 19),
-  "mobile-adaptation": createSequentialImageSet("mobile-adaptation", "mobile-adaptation", 9),
-  "wechat-guidelines": createSequentialImageSet("wechat-guidelines", "wechat-guidelines", 6),
-  "team-collaboration": createSequentialImageSet("team-collaboration", "team-collaboration", 4),
-};
-
-const getProjectConfig = () => {
-  const projectName = document.body.dataset.project || "bi-agent";
-  return PROJECT_IMAGE_SETS[projectName] || PROJECT_IMAGE_SETS["bi-agent"];
-};
-
 const ANCHOR_SECTION_THEMES = {
   "open-bank-01": "dark",
   "open-bank-02": "light",
@@ -146,18 +97,6 @@ const state = {
 };
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-
-const setupImageSlots = () => {
-  const imageSlots = getProjectConfig().slots;
-
-  document.querySelectorAll("[data-image-slot]").forEach((image) => {
-    const slotName = image.dataset.imageSlot;
-    const nextSrc = imageSlots[slotName] || PLACEHOLDER_IMAGE;
-    image.src = nextSrc;
-    image.dataset.placeholderActive = String(nextSrc === PLACEHOLDER_IMAGE);
-    image.decoding = "async";
-  });
-};
 
 const setupLoadingDelays = () => {
   const loaderText = document.querySelector("[data-loader-text]");
@@ -225,12 +164,6 @@ const runIntro = () => {
     document.body.classList.add("is-finished");
     document.body.classList.remove("is-lock", "is-loading");
   }, 4050);
-};
-
-const setIndexedTransitions = () => {
-  document.querySelectorAll("[data-footer-type] .show").forEach((span, index) => {
-    span.style.setProperty("--footer-index", index);
-  });
 };
 
 const splitNextTitle = () => {
@@ -525,54 +458,11 @@ const updateHeroParallax = () => {
   image.style.setProperty("--single-mv-y", `${y}px`);
 };
 
-const markImageRevealComplete = (item) => {
-  if (item.dataset.revealComplete === "true") return;
-  item.dataset.revealComplete = "true";
-
-  const finish = () => item.classList.add("is-reveal-complete");
-
-  item.addEventListener(
-    "transitionend",
-    (event) => {
-      if (event.propertyName.includes("clip-path")) {
-        finish();
-      }
-    },
-    { once: true }
-  );
-
-  window.setTimeout(finish, IMAGE_REVEAL_DURATION_MS + 220);
-};
-
-// 参考站交互：作品图进入视口时由上至下 clip-path 揭示。
-const updateImageReveals = () => {
-  return;
-
-  if (getVisualScroll() < IMAGE_REVEAL_MIN_SCROLL) return;
-
-  document.querySelectorAll(".p-single-images__item").forEach((item) => {
-    if (item.classList.contains("is-revealed")) return;
-    if (isElementInRange(item, IMAGE_REVEAL_TRIGGER_RATIO)) {
-      item.classList.add("is-revealed");
-      markImageRevealComplete(item);
-    }
-  });
-};
-
 // 参考站交互：View Next 字母错位滑入。
 const updateNextReveal = () => {
   const next = document.querySelector(".p-single-next");
   if (!next || next.classList.contains("is-visible")) return;
   if (isElementInRange(next, 0.8)) next.classList.add("is-visible");
-};
-
-// 参考站交互：页脚大字逐字回位。
-const updateFooterReveal = () => {
-  const footerType = document.querySelector("[data-footer-type]");
-  if (!footerType || footerType.classList.contains("is-visible")) return;
-  if (isElementInRange(document.querySelector(".l-footer"), 0.5)) {
-    footerType.classList.add("is-visible");
-  }
 };
 
 const updateAnchorActive = () => {
@@ -672,7 +562,6 @@ const updateScrollDrivenEffects = () => {
   updateHeaderState();
   updateHeroParallax();
   updateNextReveal();
-  updateFooterReveal();
   updateAnchorVisibility();
   updateAnchorActive();
   updateAnchorContrast();
@@ -856,39 +745,10 @@ const setupNextMouseTrail = () => {
   );
 };
 
-const validateRequiredChanges = () => {
-  const projectImages = Array.from(document.querySelectorAll("[data-image-slot]"));
-  const projectFolder = getProjectConfig().folder;
-  const result = {
-    previewCardRemoved: !document.querySelector(".p-single-mv__card"),
-    detailScopeRestored:
-      document.querySelector(".p-single-detail")?.textContent.includes("写在最前") &&
-      document.querySelector(".p-single-scope")?.textContent.includes("负责内容"),
-    projectImagesApplied: projectImages.every((image) => {
-      const src = image.getAttribute("src") || "";
-      const objectFit = window.getComputedStyle(image).objectFit;
-      return src.includes(projectFolder) && objectFit === "contain";
-    }),
-  };
-
-  const passed = Object.values(result).every(Boolean);
-  document.documentElement.dataset.requirementCheck = passed ? "passed" : "failed";
-
-  if (passed) {
-    console.info("[Requirement Check] Passed", result);
-  } else {
-    console.error("[Requirement Check] Failed", result);
-  }
-
-  return result;
-};
-
 const init = () => {
   resetScrollToTop();
-  setupImageSlots();
   setupLoadingDelays();
   splitNextTitle();
-  setIndexedTransitions();
   setupSmoothScroll();
   setupHeaderScroll();
   setupScrollDrivenEffects();
@@ -899,7 +759,6 @@ const init = () => {
 
   window.setTimeout(() => {
     updateScrollDrivenEffects();
-    validateRequiredChanges();
   }, prefersReducedMotion ? 160 : 3200);
 };
 
