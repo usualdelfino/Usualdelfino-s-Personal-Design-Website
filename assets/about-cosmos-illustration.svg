@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
+  <title id="title">Cosmos orbit illustration</title>
+  <desc id="desc">A soft planet and orbit illustration saved from the About section placeholder.</desc>
+  <defs>
+    <radialGradient id="paperGlow" cx="40%" cy="28%" r="62%">
+      <stop offset="0" stop-color="#fffaf1" stop-opacity=".92"/>
+      <stop offset=".48" stop-color="#f7edde" stop-opacity=".58"/>
+      <stop offset="1" stop-color="#dfc9a8" stop-opacity=".2"/>
+    </radialGradient>
+    <linearGradient id="planet" x1="22%" x2="82%" y1="16%" y2="88%">
+      <stop offset="0" stop-color="#1c1c1c"/>
+      <stop offset=".54" stop-color="#5a5047"/>
+      <stop offset="1" stop-color="#e4c9a6"/>
+    </linearGradient>
+    <radialGradient id="planetLight" cx="31%" cy="25%" r="42%">
+      <stop offset="0" stop-color="#fff" stop-opacity=".88"/>
+      <stop offset=".32" stop-color="#fff" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="28" stdDeviation="24" flood-color="#413424" flood-opacity=".18"/>
+    </filter>
+  </defs>
+  <rect width="640" height="640" rx="28" fill="url(#paperGlow)"/>
+  <ellipse cx="327" cy="312" rx="250" ry="152" fill="none" stroke="#202020" stroke-opacity=".08" stroke-width="2" transform="rotate(-23 327 312)"/>
+  <ellipse cx="332" cy="326" rx="190" ry="118" fill="none" stroke="#202020" stroke-opacity=".07" stroke-width="2" transform="rotate(18 332 326)"/>
+  <ellipse cx="472" cy="480" rx="174" ry="174" fill="none" stroke="#202020" stroke-opacity=".05" stroke-width="2"/>
+  <ellipse cx="182" cy="188" rx="118" ry="118" fill="none" stroke="#202020" stroke-opacity=".06" stroke-width="2"/>
+  <circle cx="197" cy="194" r="14" fill="#202020"/>
+  <circle cx="514" cy="321" r="8" fill="#202020" opacity=".56"/>
+  <g opacity=".48" stroke="#202020" stroke-linecap="round">
+    <path d="M466 146h24M478 134v24" stroke-width="2"/>
+  </g>
+  <g opacity=".28" stroke="#202020" stroke-linecap="round" transform="translate(111 451) scale(.7)">
+    <path d="M-14 0h28M0-14v28" stroke-width="2"/>
+  </g>
+  <g opacity=".2" stroke="#202020" stroke-linecap="round" transform="translate(126 307) scale(.5)">
+    <path d="M-14 0h28M0-14v28" stroke-width="2"/>
+  </g>
+  <g filter="url(#softShadow)">
+    <circle cx="406" cy="420" r="72" fill="url(#planet)"/>
+    <circle cx="406" cy="420" r="72" fill="url(#planetLight)"/>
+    <circle cx="406" cy="420" r="72" fill="#000" opacity=".05"/>
+    <ellipse cx="406" cy="420" rx="112" ry="28" fill="none" stroke="#202020" stroke-opacity=".16" stroke-width="2" transform="rotate(-16 406 420)"/>
+  </g>
+</svg>

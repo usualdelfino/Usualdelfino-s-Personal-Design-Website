@@ -381,6 +381,33 @@ img {
   transform: translate(-50%, -50%);
 }
 
+/* After selecting an anchor, close the panel even while the pointer still
+   overlaps its previous footprint. Pointer leave unlocks the next hover. */
+.c-anchor-nav.is-collapsing {
+  transform: translate3d(calc(-100% + 50px), -50%, 0) scale(0.985);
+}
+
+.c-anchor-nav.is-collapsing .c-anchor-nav__rail {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+.c-anchor-nav.is-collapsing .c-anchor-nav__panel {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  opacity: 0;
+  transform: translateX(-10px) scaleX(0.96);
+  pointer-events: none;
+}
+
+.c-anchor-nav.is-collapsing .c-anchor-nav__panel::before,
+.c-anchor-nav.is-collapsing .c-anchor-nav__panel::after {
+  opacity: 0;
+}
+
 .c-anchor-nav__list {
   opacity: 0;
   pointer-events: none;

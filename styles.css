@@ -2360,6 +2360,47 @@ body.is-finished .hero__actions.reveal {
   padding: clamp(0.6rem, 1.5vw, 1.1rem) 0;
 }
 
+.selected__all-projects {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  width: min(100%, 12.8rem);
+  margin-top: clamp(1.8rem, 3vw, 3rem);
+  border: 1px solid rgba(242, 189, 117, 0.42);
+  border-radius: 999px;
+  padding: 0.9rem 1rem 0.9rem 1.15rem;
+  color: rgba(247, 237, 222, 0.8);
+  font-size: 0.86rem;
+  font-weight: 600;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.selected__all-projects svg {
+  width: 1.05rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  transition: transform 180ms ease;
+}
+
+.selected__all-projects:hover,
+.selected__all-projects:focus-visible {
+  border-color: rgba(242, 189, 117, 0.85);
+  background: rgba(242, 189, 117, 0.1);
+  color: #ffe6c1;
+  transform: translate3d(0, -0.08rem, 0);
+}
+
+.selected__all-projects:hover svg,
+.selected__all-projects:focus-visible svg {
+  transform: translateX(0.22rem);
+}
+
 .selected__number {
   margin: 0 0 clamp(0.4rem, 0.8vw, 1.6rem);
   color: rgba(245, 234, 219, 0.6);

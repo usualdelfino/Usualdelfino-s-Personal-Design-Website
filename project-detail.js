@@ -56,6 +56,16 @@ const shouldPlaySystemIntro = () => {
 
 // 图片替换入口：详情页通过 body[data-project] 选择对应素材集。
 const PLACEHOLDER_IMAGE = "./assets/project-placeholder.svg";
+const createSequentialImageSet = (folder, prefix, count) => ({
+  folder: `assets/${folder}/`,
+  slots: Object.fromEntries(
+    Array.from({ length: count }, (_, index) => {
+      const slot = index === 0 ? "hero" : `more${String(index).padStart(2, "0")}`;
+      return [slot, `./assets/${folder}/${prefix}-${String(index).padStart(2, "0")}.jpg`];
+    })
+  ),
+});
+
 const PROJECT_IMAGE_SETS = {
   "bi-agent": {
     folder: "assets/bi-agent/",
@@ -82,6 +92,10 @@ const PROJECT_IMAGE_SETS = {
       })
     ),
   },
+  "gantt-review": createSequentialImageSet("gantt-review", "gantt-review", 19),
+  "mobile-adaptation": createSequentialImageSet("mobile-adaptation", "mobile-adaptation", 9),
+  "wechat-guidelines": createSequentialImageSet("wechat-guidelines", "wechat-guidelines", 6),
+  "team-collaboration": createSequentialImageSet("team-collaboration", "team-collaboration", 4),
 };
 
 const getProjectConfig = () => {
@@ -127,6 +141,7 @@ const state = {
   headerHeight: 0,
   headerTicking: false,
   effectsTicking: false,
+  anchorScrollRaf: 0,
   raf: 0,
 };
 
@@ -617,14 +632,6 @@ const updateAnchorContrast = () => {
     return;
   }
 
-  const activeTheme =
-    ANCHOR_SECTION_THEMES[nav.querySelector("[data-anchor-link].is-active")?.dataset.anchorLink];
-  if (activeTheme) {
-    nav.classList.toggle("is-on-dark", activeTheme === "dark");
-    nav.classList.toggle("is-on-light", activeTheme !== "dark");
-    return;
-  }
-
   const rect = rail.getBoundingClientRect();
   const samplePoints = [
     [rect.left + rect.width / 2, rect.top + rect.height / 2],
@@ -642,6 +649,8 @@ const updateAnchorContrast = () => {
   const darkThemeVotes = themeSamples.filter((theme) => theme === "dark").length;
   const lightThemeVotes = themeSamples.filter((theme) => theme === "light").length;
   const hasThemeVote = darkThemeVotes + lightThemeVotes > 0;
+  const activeTheme =
+    ANCHOR_SECTION_THEMES[nav.querySelector("[data-anchor-link].is-active")?.dataset.anchorLink];
   const luminanceSamples = hasThemeVote
     ? []
     : samplePoints
@@ -650,8 +659,10 @@ const updateAnchorContrast = () => {
   const darkLuminanceVotes = luminanceSamples.filter((value) => value < 0.42).length;
   const isDark = hasThemeVote
     ? darkThemeVotes >= lightThemeVotes
-    : luminanceSamples.length > 0 &&
-      darkLuminanceVotes >= Math.ceil(luminanceSamples.length / 2);
+    : activeTheme
+      ? activeTheme === "dark"
+      : luminanceSamples.length > 0 &&
+        darkLuminanceVotes >= Math.ceil(luminanceSamples.length / 2);
 
   nav.classList.toggle("is-on-dark", isDark);
   nav.classList.toggle("is-on-light", !isDark);
@@ -693,20 +704,76 @@ const setupScrollDrivenEffects = () => {
   });
 };
 
+const cancelAnchorScroll = () => {
+  if (!state.anchorScrollRaf) return;
+  window.cancelAnimationFrame(state.anchorScrollRaf);
+  state.anchorScrollRaf = 0;
+};
+
+const animateAnchorScroll = (destination) => {
+  cancelAnchorScroll();
+
+  const start = window.scrollY || window.pageYOffset || 0;
+  const distance = destination - start;
+  if (Math.abs(distance) < 1) return;
+
+  const duration = clamp(620 + Math.abs(distance) * 0.09, 720, 1200);
+  const startedAt = performance.now();
+  const easeInOutCubic = (progress) =>
+    progress < 0.5
+      ? 4 * progress * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+  const step = (now) => {
+    const progress = clamp((now - startedAt) / duration, 0, 1);
+    const nextY = start + distance * easeInOutCubic(progress);
+    window.scrollTo({ top: nextY, behavior: "auto" });
+
+    if (progress < 1) {
+      state.anchorScrollRaf = window.requestAnimationFrame(step);
+    } else {
+      state.anchorScrollRaf = 0;
+    }
+  };
+
+  state.anchorScrollRaf = window.requestAnimationFrame(step);
+};
+
 const setupAnchorNav = () => {
-  anchorLinks().forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
+  const nav = document.querySelector("[data-anchor-nav]");
+
+  document.addEventListener(
+    "click",
+    (event) => {
+      const link = event.target.closest?.("[data-anchor-link]");
+      if (!link) return;
 
       const id = link.dataset.anchorLink;
       const target = document.getElementById(id);
       if (!target) return;
 
-      const headerOffset = getHeaderHeight() + 12;
-      const top = Math.max(0, target.offsetTop - headerOffset);
-      window.scrollTo({ top, behavior: prefersReducedMotion ? "auto" : "smooth" });
-    });
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      const targetTop = target.getBoundingClientRect().top + getVisualScroll();
+      const top = Math.max(0, targetTop);
+      animateAnchorScroll(top);
+      nav?.classList.add("is-collapsing");
+      link.blur();
+
+      if (window.history?.replaceState) {
+        window.history.replaceState(null, "", `#${id}`);
+      }
+    },
+    true
+  );
+
+  nav?.addEventListener("pointerleave", () => {
+    nav.classList.remove("is-collapsing");
   });
+
+  window.addEventListener("wheel", cancelAnchorScroll, { passive: true });
+  window.addEventListener("touchstart", cancelAnchorScroll, { passive: true });
 };
 
 const NEXT_STAR_SVG = `

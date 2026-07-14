@@ -76,6 +76,10 @@
   line-height: 1;
 }
 
+body[data-project] .site-header__nav {
+  display: none;
+}
+
 .site-header a {
   position: relative;
   color: inherit;

@@ -1,9 +1,9 @@
 (function () {
-  const HEADER_HTML = ({ active, isHome }) => {
+  const HEADER_HTML = ({ active, isHome, contactOverride, hideNav }) => {
     const homeHref = isHome ? "#top" : "./index.html";
     const aboutHref = isHome ? "#about" : "./index.html";
-    const projectHref = isHome ? "#selected" : "./index.html#selected";
-    const contactHref = "#contact";
+    const projectHref = isHome ? "#selected" : "./projects.html";
+    const contactHref = contactOverride || "#contact";
 
     const activeClass = (key) => (active === key ? " is-active" : "");
     const currentAttr = (key) => (active === key ? ' aria-current="page"' : "");
@@ -13,12 +13,12 @@
         <a class="site-header__logo" href="${homeHref}" aria-label="返回首页">
           <img src="./assets/site-logo.svg" alt="子远的设计空间" />
         </a>
-        <nav class="site-header__nav" aria-label="主导航">
+        ${hideNav ? "" : `<nav class="site-header__nav" aria-label="主导航">
           <a class="site-header__link${activeClass("about")}" href="${aboutHref}"${currentAttr("about")}>ABOUT</a>
           <a class="site-header__link${activeClass("project")}" href="${projectHref}"${currentAttr("project")}>PROJECT</a>
           <a class="site-header__link${activeClass("contact")}" href="${contactHref}"${currentAttr("contact")}>CONTACT</a>
           <span class="site-header__nav-line" aria-hidden="true"></span>
-        </nav>
+        </nav>`}
       </header>
     `;
   };
@@ -39,7 +39,9 @@
     const targetTop = getDocumentTop(target);
     const headerOffset = header ? header.getBoundingClientRect().height + 12 : 0;
 
-    if (target.id === "top" || target.id === "contact") return targetTop;
+    if (target.id === "top" || target.id === "about" || target.id === "contact") {
+      return targetTop;
+    }
 
     if (target.id === "selected") {
       const paddingTop = parseFloat(window.getComputedStyle(target).paddingTop) || 0;
@@ -191,9 +193,11 @@
     document.querySelectorAll("[data-site-header]").forEach((target) => {
       const isHome = target.dataset.siteHeaderPage === "home";
       const active = target.dataset.siteHeaderActive || "";
+      const contactOverride = target.dataset.siteHeaderContactHref || "";
+      const hideNav = target.dataset.siteHeaderHideNav === "true";
       const wrapper = document.createElement("div");
 
-      wrapper.innerHTML = HEADER_HTML({ active, isHome }).trim();
+      wrapper.innerHTML = HEADER_HTML({ active, isHome, contactOverride, hideNav }).trim();
       const header = wrapper.firstElementChild;
       target.replaceWith(header);
       bindSamePageAnchors(header);

@@ -1,0 +1,11 @@
+# Local archive and generated package files
+_archive/
+backups/
+deploy-clean/
+*.zip
+*-options.html
+*-preview.html
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
